@@ -19,3 +19,5 @@
             1
             (* n (factorial (- n 1)))))))
  3)
+
+; vim: ft=scheme

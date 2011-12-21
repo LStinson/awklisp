@@ -5,3 +5,5 @@
         (+ (fib (- n 1))
            (fib (- n 2))))))
 (fib 20)
+
+; vim: ft=scheme

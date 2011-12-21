@@ -67,3 +67,5 @@
         (if (= n 0) 
             (car lst)
             (list-ref (cdr lst) (- n 1))))))
+
+; vim: ft=scheme

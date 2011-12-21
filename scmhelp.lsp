@@ -46,3 +46,5 @@
     (and (pair? object)
          (eq? (car object) '%prim))))
 
+
+; vim: ft=scheme

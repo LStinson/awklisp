@@ -138,3 +138,5 @@
 (define random-element
   (lambda (lst)
     (list-ref lst (random (length lst)))))
+
+; vim: ft=scheme

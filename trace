@@ -68,3 +68,5 @@
 (define set
   (lambda (var value)
     (eval (list 'set! var (list 'quote value)))))
+
+; vim: ft=scheme

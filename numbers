@@ -31,3 +31,5 @@
             (* base (expt base (- power 1)))))))
 
 (define square (lambda (n) (* n n)))
+
+; vim: ft=scheme
