@@ -7,7 +7,7 @@ use FileHandle;
     $a_number = 0;
     $pair_ptr = $a_pair = 1;
     $symbol_ptr = $a_symbol = 2;
-    
+
     $type_name{$a_number} = "number";
     $type_name{$a_pair} = "pair";
     $type_name{$a_symbol} = "symbol";
@@ -28,7 +28,7 @@ sub is_atom       { local($expr)=@_; $expr % 4 != 1; }
 
 sub make_number { local($n)=@_;  $n * 4 ;}
 
-sub numeric_value { 
+sub numeric_value {
     local($expr)=@_;
     if ($expr % 4 != 0) { error(__LINE__,"Not a number"); }
     $expr / 4;
@@ -125,7 +125,7 @@ sub gc {
 
 # --- Set up
 
-# BEGIN {       
+# BEGIN {
     $trace = 0;
     $lineno = 0;
     $filehandle = \*STDIN;
@@ -137,9 +137,9 @@ sub gc {
     $gensym_counter=0;
     srand();
     $token = "";
-    
+
     $frame_ptr = $stack_ptr = 0;
-    
+
     $NIL        = string_to_symbol("nil");
     $T          = string_to_symbol("t");
     ;
@@ -218,7 +218,7 @@ sub gc {
 
 # --- The interpreter
 
-# BEGIN {       
+# BEGIN {
    $ts = "testme";
    if ( -f $ts ) { load($ts); }
    $rc = "$ENV{'HOME'}/.perlisprc";
@@ -231,7 +231,7 @@ sub gc {
             apply($value{$DRIVER});
         } else {
             $expr = lread();
-            if ($trace) { 
+            if ($trace) {
                     print_expr($expr);
                     print "%$expr%\n"; }
             if ($expr == $THE_EOF_OBJECT) { last READLOOP; }
@@ -245,7 +245,7 @@ sub gc {
     print "\n\nRestarting\n\n";
     $frame_ptr = $stack_ptr = 0;
   }
-    
+
     if ($profiling) {
         while (defined $call_count{$proc}) {
             printf "%5d ", $call_count{$proc} ;
@@ -302,7 +302,7 @@ sub l_eval {
     };
     if ($op == $WHILE) {
         while (l_eval($car{$cdr{$expr}}) != $NIL) {
-            progn($cdr{$cdr{$expr}}); 
+            progn($cdr{$cdr{$expr}});
         }
         return $NIL
     }
@@ -311,19 +311,19 @@ sub l_eval {
         return $car{$cdr{$expr}};
     }
     if ($op == $QUIT)   { exit(); }
-    
+
     error(__LINE__,"BUG: Unknown special form");
 }
 
-sub progn { 
+sub progn {
      local ($exprs) = @_;
      for (; $cdr{$exprs} != $NIL; $exprs = $cdr{$exprs}) {
          l_eval($car{$exprs});
      }
      return l_eval($car{$exprs});
 }
- 
-sub l_eval_rands { 
+
+sub l_eval_rands {
     local ($rands) = @_;
      for (; $rands != $NIL; $rands = $cdr{$rands}) {
          $stack[$stack_ptr++] = l_eval($car{$rands});
@@ -388,7 +388,7 @@ sub apply {
      if ($proc == $INTER)   { return($interactive ? $T : $NIL); }
      if ($proc == $FILE)    { return string_to_symbol($filename); }
      if ($proc == $LINENO)  { return make_number(($lineno)+1); }
-     if ($proc == $TRACE)   { if ($trace) { $trace = 0;} 
+     if ($proc == $TRACE)   { if ($trace) { $trace = 0;}
                                 else { $trace = 1; } return $NIL;  }
 
      if ($proc == $RANDOM)  {
@@ -443,7 +443,7 @@ sub endfile {
          error(__LINE__,"Bad argument to APPLY: not a proper list"); }
 
      $result = apply($proc);
- 
+
      $stack_ptr = $frame_ptr;
      $frame_ptr = $old_frame_ptr;
      return $result;
@@ -524,7 +524,7 @@ sub lwrite_expr {
          printf(")");
      }
  }
- 
+
 # --- Input
 
 sub lread {
@@ -585,7 +585,7 @@ sub lread {
          return $result;
      }
  }
- 
+
  sub skip_blanks {
      while ($token =~ /^[ \t]*$/) {
          advance();
